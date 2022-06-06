@@ -103,6 +103,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btn_add = findViewById(R.id.btn_add);
+        Button btn_delete = findViewById(R.id.btn_delete);
+        Button btn_info = findViewById(R.id.btn_info);
+        Button btn_modify = findViewById(R.id.btn_modify);
+
         listView = findViewById(R.id.listView);
         listData = new ArrayList<>();
         simpleAdapter = new SimpleAdapter(this, listData, R.layout.simple_list_item_activated_3,
@@ -123,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnInfo = findViewById(R.id.btn_info);
-        btnInfo.setOnClickListener(new View.OnClickListener() {
+        btn_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (iSelectedItem == -1) {
@@ -139,46 +143,56 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+                intent.putExtra("item", -1);
+                intent.putExtra("id", 0);
+                launcher.launch(intent);
+            }
+        });
+
+        btn_modify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (iSelectedItem == -1) {
+                    Toast.makeText(getApplicationContext(), "선택한 항목이 없습니다.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+                intent.putExtra("item", iSelectedItem);
+                intent.putExtra("id", iSelectedID);
+                HashMap<String, String> hitem = (HashMap<String, String>) simpleAdapter.getItem(iSelectedItem);
+                intent.putExtra("schedule", hitem.get("schedule"));
+                intent.putExtra("date", hitem.get("date"));
+                intent.putExtra("place", hitem.get("place"));
+                intent.putExtra("detail", hitem.get("detail"));
+                launcher.launch(intent);
+            }
+        });
+
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (iSelectedItem == -1) {
+                    Toast.makeText(getApplicationContext(), "선택한 항목이 없습니다.", Toast.LENGTH_LONG).show();
+                    return;
+                }else {
+                    database = dbHelper.getReadableDatabase();
+                    String SQL_DELETE = "DELETE FROM SCHEDULE_A WHERE ID=" + iSelectedID;
+                    database.execSQL(SQL_DELETE);
+                    database.close();
+
+                    listData.remove(iSelectedItem);
+                    simpleAdapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+
         launcher = registerForActivityResult(contract, callback);
     }//oncreate
 
-    public void onClickAdd(View view) {
-        Intent intent = new Intent(this, EditActivity.class);
-        intent.putExtra("item", -1);
-        intent.putExtra("id", 0);
-        launcher.launch(intent);
-    }
-
-    public void onClickEdit(View view) {
-        if (iSelectedItem == -1) {
-            Toast.makeText(this, "선택한 항목이 없습니다.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        Intent intent = new Intent(this, EditActivity.class);
-        intent.putExtra("item", iSelectedItem);
-        intent.putExtra("id", iSelectedID);
-        HashMap<String, String> hitem = (HashMap<String, String>) simpleAdapter.getItem(iSelectedItem);
-        intent.putExtra("schedule", hitem.get("schedule"));
-        intent.putExtra("date", hitem.get("date"));
-        intent.putExtra("place", hitem.get("place"));
-        intent.putExtra("detail", hitem.get("detail"));
-        launcher.launch(intent);
-    }
-
-    public void onClickdelete(View view) {
-        if (iSelectedItem == -1) {
-            Toast.makeText(this, "선택한 항목이 없습니다.", Toast.LENGTH_LONG).show();
-            return;
-        }else {
-            database = dbHelper.getReadableDatabase();
-            String SQL_DELETE = "DELETE FROM SCHEDULE_A WHERE ID=" + iSelectedID;
-            database.execSQL(SQL_DELETE);
-            database.close();
-
-            listData.remove(iSelectedItem);
-            simpleAdapter.notifyDataSetChanged();
-
-        }
-    }
 }
