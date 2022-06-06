@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<HashMap<String, String>> listData;
     SimpleAdapter simpleAdapter;
-    int iSelectedItem = -1; //listview에서의 index값
+    int iSelectedItem = -1;
 
-    int iSelectedID = 0;    //record에 id값
-    int iMaxID = 0;         //iMaxID + 1
+    int iSelectedID = 0;
+    int iMaxID = 0;
 
     DBHelper dbHelper;
     SQLiteDatabase database;
@@ -49,15 +49,19 @@ public class MainActivity extends AppCompatActivity {
                 int iItem = intent.getIntExtra("item", -1);
                 int iID = intent.getIntExtra("id", 0);
                 HashMap<String, String> hitem = new HashMap<>();
-                hitem.put("schedule", intent.getStringExtra("schedule"));
+                hitem.put("diary", intent.getStringExtra("diary"));
                 hitem.put("date", intent.getStringExtra("date"));
-                hitem.put("place", intent.getStringExtra("place"));
-                hitem.put("detail", intent.getStringExtra("detail"));
+                hitem.put("diet", intent.getStringExtra("diet"));
+                hitem.put("strength", intent.getStringExtra("strength"));
+                hitem.put("mental", intent.getStringExtra("mental"));
+                hitem.put("msg", intent.getStringExtra("msg"));
                 ContentValues values = new ContentValues();
-                values.put("schedule", intent.getStringExtra("schedule"));
+                values.put("diary", intent.getStringExtra("diary"));
                 values.put("date", intent.getStringExtra("date"));
-                values.put(DBContract.COL_WHERE, intent.getStringExtra("place"));
-                values.put(DBContract.COL_DETAIL, intent.getStringExtra("detail"));
+                values.put("diet", intent.getStringExtra("diet"));
+                values.put("strength", intent.getStringExtra("strength"));
+                values.put("mental", intent.getStringExtra("mental"));
+                values.put("msg", intent.getStringExtra("msg"));
 
                 if (iItem == -1) {//add
                     iMaxID++;
@@ -87,10 +91,12 @@ public class MainActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             int nID = cursor.getInt(0);
             HashMap<String, String> hitem = new HashMap<>();
-            hitem.put("schedule", cursor.getString(1));
+            hitem.put("diary", cursor.getString(1));
             hitem.put("date", cursor.getString(2));
-            hitem.put("place", cursor.getString(3));
-            hitem.put("detail", cursor.getString(4));
+            hitem.put("diet", cursor.getString(3));
+            hitem.put("strength", cursor.getString(4));
+            hitem.put("mental", cursor.getString(5));
+            hitem.put("msg", cursor.getString(6));
             hitem.put("id", String.valueOf(nID));
             listData.add(hitem);
             iMaxID = Math.max(iMaxID, nID);
@@ -111,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         listData = new ArrayList<>();
         simpleAdapter = new SimpleAdapter(this, listData, R.layout.simple_list_item_activated_3,
-                new String[]{"schedule", "date", "place"}, new int[]{R.id.text1, R.id.text2, R.id.text3});
+                new String[]{"date", "strength", "mental"}, new int[]{R.id.text1, R.id.text2, R.id.text3});
         listView.setAdapter(simpleAdapter);
 
         dbHelper = new DBHelper(this);
@@ -137,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     HashMap<String, String> hitem = (HashMap<String, String>) simpleAdapter.getItem(iSelectedItem);
                     //dialog
-                    String sDetail = hitem.get("detail");
+                    String sDetail = hitem.get("msg");
                     Toast.makeText(getApplicationContext(), sDetail, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -165,10 +171,12 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("item", iSelectedItem);
                 intent.putExtra("id", iSelectedID);
                 HashMap<String, String> hitem = (HashMap<String, String>) simpleAdapter.getItem(iSelectedItem);
-                intent.putExtra("schedule", hitem.get("schedule"));
+                intent.putExtra("diary", hitem.get("diary"));
                 intent.putExtra("date", hitem.get("date"));
-                intent.putExtra("place", hitem.get("place"));
-                intent.putExtra("detail", hitem.get("detail"));
+                intent.putExtra("diet", hitem.get("diet"));
+                intent.putExtra("strength", hitem.get("strength"));
+                intent.putExtra("mental", hitem.get("mental"));
+                intent.putExtra("msg", hitem.get("msg"));
                 launcher.launch(intent);
             }
         });
@@ -181,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }else {
                     database = dbHelper.getReadableDatabase();
-                    String SQL_DELETE = "DELETE FROM SCHEDULE_A WHERE ID=" + iSelectedID;
+                    String SQL_DELETE = "DELETE FROM DIARY_D WHERE ID=" + iSelectedID;
                     database.execSQL(SQL_DELETE);
                     database.close();
 

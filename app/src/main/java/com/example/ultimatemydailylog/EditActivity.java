@@ -16,7 +16,7 @@ import com.example.ultimatemydailylog.R;
 import com.example.ultimatemydailylog.DBContract;
 
 public class EditActivity extends AppCompatActivity {
-    EditText editTitle, editDate, editPlace, editDetail;
+    EditText editTitle, editDate, editDiet, editStrength, editMental, editMsg;
     int iItem = -1;
     int iID = 0;
     DBHelper dbHelper;
@@ -25,10 +25,13 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        editTitle = findViewById(R.id.editTextName);
-        editDate = findViewById(R.id.editTextDate);
-        editPlace = findViewById(R.id.editTextPlace);
-        editDetail = findViewById(R.id.editTextDetail);
+
+        editTitle = findViewById(R.id.et_title);
+        editDate = findViewById(R.id.et_date);
+        editDiet = findViewById(R.id.et_diet);
+        editStrength = findViewById(R.id.et_strength);
+        editMental = findViewById(R.id.et_mental);
+        editMsg = findViewById(R.id.et_msg);
 
         dbHelper = new DBHelper(this);
 
@@ -37,55 +40,50 @@ public class EditActivity extends AppCompatActivity {
             iItem = intentR.getIntExtra("item", -1);
             iID = intentR.getIntExtra("id",0);
             if(iItem != -1){
-                editTitle.setText(intentR.getStringExtra("schedule"));
+                editTitle.setText(intentR.getStringExtra("diary"));
                 editDate.setText(intentR.getStringExtra("date"));
-                editPlace.setText(intentR.getStringExtra("place"));
-                editDetail.setText(intentR.getStringExtra("detail"));
+                editDiet.setText(intentR.getStringExtra("diet"));
+                editStrength.setText(intentR.getStringExtra("strength"));
+                editMental.setText(intentR.getStringExtra("mental"));
+                editMsg.setText(intentR.getStringExtra("msg"));
 
             }
         }
-        Button btnCancel = findViewById(R.id.buttonCancel);
-        Button btnSave = findViewById(R.id.buttonSave);
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
+        Button btnSave = findViewById(R.id.btn_save);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sName = editTitle.getText().toString().trim();
+                String sTitle = editTitle.getText().toString().trim();
                 String sDate = editDate.getText().toString().trim();
-                String sPlace = editPlace.getText().toString().trim();
-                String sDetail = editDetail.getText().toString().trim();
+                String sDiet = editDiet.getText().toString().trim();
+                String sStrength = editStrength.getText().toString().trim();
+                String sMental = editMental.getText().toString().trim();
+                String sMsg = editMsg.getText().toString().trim();
 
-                if(sName.isEmpty() || sDate.isEmpty() || sPlace.isEmpty()){
-                    Toast.makeText(getApplicationContext(), "항목을 모두 입력해주세요.", Toast.LENGTH_LONG).show();
+                if(sTitle.isEmpty() || sDate.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Title과 Date를 입력해주세요.", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 SQLiteDatabase db = dbHelper.getReadableDatabase();
-                //static final String SQL_SELECT_ID = "SELECT ID FROM "  + TABLE_NAME + " WHERE " + COL_TITLE + "=? and " + COL_WHEN + "=?";
-                Cursor cursor = db.rawQuery(DBContract.SQL_SELECT_ID, new String[] {sName, sDate});
+                Cursor cursor = db.rawQuery(DBContract.SQL_SELECT_ID, new String[] {sTitle, sDate});
                 if(cursor.getCount() != 0){
                     cursor.moveToNext();
-                    if(iItem == -1) {    //추가하기 위해 이 액티비티로 이돟한 경우
+                    if(iItem == -1) {
                         Toast.makeText(getApplicationContext(), "중복되었습니다.", Toast.LENGTH_LONG).show();
                         return;
-                        //수정하기 위해 record로 보낸 ID값과 반환된 ID값이 같으면 중복 X 같지않으면 중복
-                    }else if(iID != cursor.getInt(0)){  //수정하기 위해 이동한 경우
+                    }else if(iID != cursor.getInt(0)){
                         Toast.makeText(getApplicationContext(), "중복되었습니다.", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
                 Intent intent = new Intent();
-                intent.putExtra("schedule", sName);
+                intent.putExtra("diary", sTitle);
                 intent.putExtra("date", sDate);
-                intent.putExtra("place", sPlace);
-                intent.putExtra("detail", sDetail);
+                intent.putExtra("diet", sDiet);
+                intent.putExtra("strength", sStrength);
+                intent.putExtra("mental", sMental);
+                intent.putExtra("msg", sMsg);
                 intent.putExtra("item", iItem);
                 intent.putExtra("id",iID);
                 setResult(RESULT_OK, intent);
