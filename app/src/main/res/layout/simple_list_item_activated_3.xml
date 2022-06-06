@@ -9,10 +9,16 @@
     android:orientation="vertical"
     android:layout_marginHorizontal="2dp">
 
-    <TextView android:id="@+id/text1"
+    <TextView
+        android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="italic" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,14 +28,14 @@
             android:id="@+id/text2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:textAppearance="?android:attr/textAppearanceListItemSecondary" />
-        <TextView android:id="@+id/text3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:textAppearance="?android:attr/textAppearanceListItemSecondary"/>
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 

@@ -1,6 +1,7 @@
 package com.example.ultimatemydailylog;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,6 +18,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ultimatemydailylog.DBHelper;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 values.put("mental", intent.getStringExtra("mental"));
                 values.put("msg", intent.getStringExtra("msg"));
 
-                if (iItem == -1) {//add
+                if (iItem == -1) {
                     iMaxID++;
                     hitem.put("id", String.valueOf(iMaxID));
                     values.put("id", String.valueOf(iMaxID));
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 simpleAdapter.notifyDataSetChanged();
             } else
-                Toast.makeText(getApplicationContext(), "취소되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Canceled", Toast.LENGTH_SHORT).show();
         }
     };
     ActivityResultLauncher<Intent> launcher;
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         listData = new ArrayList<>();
         simpleAdapter = new SimpleAdapter(this, listData, R.layout.simple_list_item_activated_3,
-                new String[]{"date", "strength", "mental"}, new int[]{R.id.text1, R.id.text2, R.id.text3});
+                new String[]{"date", "diary"}, new int[]{R.id.text1, R.id.text2});
         listView.setAdapter(simpleAdapter);
 
         dbHelper = new DBHelper(this);
@@ -128,8 +130,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 iSelectedItem = position;
                 HashMap<String, String> hitem = (HashMap<String, String>) simpleAdapter.getItem(iSelectedItem);
-                String sID = hitem.get("id");
-                Toast.makeText(getApplicationContext(), sID, Toast.LENGTH_SHORT).show();
+                String sTitle = hitem.get("diary");
+                String sDate = hitem.get("date");
+                Toast.makeText(getApplicationContext(), sDate + ", " + sTitle, Toast.LENGTH_SHORT).show();
                 iSelectedID = Integer.parseInt(hitem.get("id"));
             }
         });
@@ -142,9 +145,27 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 } else {
                     HashMap<String, String> hitem = (HashMap<String, String>) simpleAdapter.getItem(iSelectedItem);
-                    //dialog
-                    String sDetail = hitem.get("msg");
-                    Toast.makeText(getApplicationContext(), sDetail, Toast.LENGTH_SHORT).show();
+                    String dTitle = hitem.get("diary");
+                    String dDate = hitem.get("date");
+                    String dDiet = hitem.get("diet");
+                    String dStrength = hitem.get("strength");
+                    String dMental = hitem.get("mental");
+                    String dMsg = hitem.get("msg");
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("기록 확인 " + dDate);
+                    builder.setMessage(" 운동 종류 : " + dTitle
+                                            + "\n 식단 유무 : " + dDiet
+                                           + "\n 운동 강도 : " + dStrength
+                                            + "\n 의지 정도 : " + dMental
+                                            + "\n 짧은 메모 : " + dMsg);
+                    builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    builder.show();
                 }
             }
         });
