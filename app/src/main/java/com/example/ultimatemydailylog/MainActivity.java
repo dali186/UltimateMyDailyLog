@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnInfo = findViewById(R.id.buttonInfo);
+        Button btnInfo = findViewById(R.id.btn_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
