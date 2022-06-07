@@ -55,30 +55,30 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_type"
+                        android:id="@+id/tv_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="방향 :"
+                        android:text="이름 :"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tv_goal"
+                        android:id="@+id/tv_sex"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="목표 :"
+                        android:text="성별 :"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tv_weight"
+                        android:id="@+id/tv_height"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="체중 :"
+                        android:text="신장 :"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -90,7 +90,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_setType"
+                        android:id="@+id/tv_setName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -99,7 +99,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tv_setGoal"
+                        android:id="@+id/tv_setSex"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -108,7 +108,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/tv_setWeight"
+                        android:id="@+id/tv_setHeight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

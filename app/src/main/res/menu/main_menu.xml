@@ -11,11 +11,11 @@
         android:id="@+id/action_settings2"
         android:orderInCategory="100"
         android:title="달력 보기"
-        app:showAsAction="never" />
+        app:showAsAction="withText" />
     <item
         android:id="@+id/action_settings3"
         android:orderInCategory="100"
         android:title="목표 보기"
-        app:showAsAction="never" />
+        app:showAsAction="withText" />
 
 </menu>

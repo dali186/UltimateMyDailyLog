@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.service.autofill.UserData;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,29 +29,29 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.ultimatemydailylog.DBHelper;
-import com.example.ultimatemydailylog.R;
-import com.example.ultimatemydailylog.DBContract;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
+    //USER
+    ArrayList<HashMap<String, String>> userData;
+    UserHelper userHelper;
+    SQLiteDatabase userDatabase;
+    EditText nameEdit, sexEdit, heightEdit;
+    TextView setName, setSex, setHeight;
+    //DAIRY
     ListView listView;
     ArrayList<HashMap<String, String>> listData;
     SimpleAdapter simpleAdapter;
     int iSelectedItem = -1;
-
     int iSelectedID = 0;
     int iMaxID = 0;
-
     DBHelper dbHelper;
     SQLiteDatabase database;
-
+    //TOOLBAR
     Toolbar toolbar;
 
-
+    //DIARY INTENT
     ActivityResultContract<Intent, ActivityResult> contract = new ActivityResultContracts.StartActivityForResult();
     ActivityResultCallback<ActivityResult> callback = new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         simpleAdapter.notifyDataSetChanged();
     }
 
+    //TOOLBAR
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -144,15 +147,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //user
+        userData = new ArrayList<>();
+        userHelper = new UserHelper(this);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        ContentValues values = new ContentValues();
+        values.put("name", "kim");
+        values.put("sex", "M");
+        values.put("height", "186");
+        values.put("weight", "80");
+        values.put("goal", "bulk");
+        values.put("sdate", "20192610");
+        values.put("id", 1);
+
+        userDatabase = userHelper.getWritableDatabase();
+        userDatabase.insert(UserContract.TABLE_NAME, null, values);
+
+        //toobar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Button btn_add = findViewById(R.id.btn_add);
         Button btn_delete = findViewById(R.id.btn_delete);
         Button btn_info = findViewById(R.id.btn_info);
         Button btn_modify = findViewById(R.id.btn_modify);
-
+        //dairy
         listView = findViewById(R.id.listView);
         listData = new ArrayList<>();
         simpleAdapter = new SimpleAdapter(this, listData, R.layout.simple_list_item_activated_3,
@@ -192,10 +211,10 @@ public class MainActivity extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("기록 확인 " + dDate);
                     builder.setMessage(" 운동 종류 : " + dTitle
-                                            + "\n 식단 유무 : " + dDiet
-                                           + "\n 운동 강도 : " + dStrength
-                                            + "\n 의지 정도 : " + dMental
-                                            + "\n 짧은 메모 : " + dMsg);
+                            + "\n 식단 유무 : " + dDiet
+                            + "\n 운동 강도 : " + dStrength
+                            + "\n 의지 정도 : " + dMental
+                            + "\n 짧은 메모 : " + dMsg);
                     builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -245,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 if (iSelectedItem == -1) {
                     Toast.makeText(getApplicationContext(), "선택한 항목이 없습니다.", Toast.LENGTH_LONG).show();
                     return;
-                }else {
+                } else {
                     database = dbHelper.getReadableDatabase();
                     String SQL_DELETE = "DELETE FROM DIARY_D WHERE ID=" + iSelectedID;
                     database.execSQL(SQL_DELETE);
@@ -261,27 +280,31 @@ public class MainActivity extends AppCompatActivity {
         launcher = registerForActivityResult(contract, callback);
     }//oncreate
 
-    public void userInfo(){
-
-        View addUser = View.inflate(getApplicationContext(), R.layout.add_user_view, null);
-
-        EditText typeEdit = findViewById(R.id.et_type);
-        EditText goalEdit = findViewById(R.id.et_goal);
-        EditText weightEdit = findViewById(R.id.et_weight);
-
-        TextView setType = findViewById(R.id.tv_setType);
-        TextView setGoal = findViewById(R.id.tv_setGoal);
-        TextView setWeight = findViewById(R.id.tv_setWeight);
-
+    public void userInfo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        TextView setName = findViewById(R.id.tv_setName);
+        TextView setSex = findViewById(R.id.tv_setSex);
+        TextView setHeight = findViewById(R.id.tv_setHeight);
+
+        EditText nameEdit = findViewById(R.id.et_name);
+        EditText sexEdit = findViewById(R.id.et_sex);
+        EditText heightEdit = findViewById(R.id.et_height);
+
+        builder.setView(inflater.inflate(R.layout.add_user_view, null));
         builder.setTitle("사용자 정보 입력");
-        builder.setView(addUser);
         builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                setType.setText(typeEdit.getText().toString().trim());
-                setGoal.setText(goalEdit.getText().toString().trim());
-                setWeight.setText(weightEdit.getText().toString().trim());
+
+                String name = nameEdit.getText().toString();
+                String sex = sexEdit.getText().toString();
+                String height = heightEdit.getText().toString();
+
+                setName.setText(name);
+                setSex.setText(sex);
+                setHeight.setText(height);
+
                 dialogInterface.dismiss();
             }
         });

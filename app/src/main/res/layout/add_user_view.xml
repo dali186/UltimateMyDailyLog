@@ -6,24 +6,37 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/et_type"
+        android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:drawableStart="@drawable/ic_bookmark"
+        android:drawableStart="@drawable/ic_add_person"
         android:drawablePadding="8dp"
-        android:hint="방향"
-        android:inputType="text" />
+        android:hint="이름"
+        android:inputType="text"
+        android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/et_goal"
+        android:id="@+id/et_sex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:drawableStart="@drawable/ic_event"
+        android:drawableStart="@drawable/ic_sex"
         android:drawablePadding="8dp"
-        android:hint="목표"
-        android:inputType="number" />
+        android:hint="성별"
+        android:inputType="text"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/et_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:drawableStart="@drawable/ic_height"
+        android:drawablePadding="8dp"
+        android:hint="키"
+        android:inputType="number"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/et_weight"
@@ -33,6 +46,7 @@
         android:drawableStart="@drawable/ic_body"
         android:drawablePadding="8dp"
         android:hint="체중"
-        android:inputType="number" />
+        android:inputType="number"
+        android:minHeight="48dp" />
 
 </LinearLayout>
