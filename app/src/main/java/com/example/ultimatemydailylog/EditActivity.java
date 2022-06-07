@@ -11,10 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.ultimatemydailylog.DBHelper;
-import com.example.ultimatemydailylog.R;
-import com.example.ultimatemydailylog.DBContract;
-
 public class EditActivity extends AppCompatActivity {
     EditText editTitle, editDate, editDiet, editStrength, editMental, editMsg;
     int iItem = -1;
@@ -29,7 +25,7 @@ public class EditActivity extends AppCompatActivity {
         editTitle = findViewById(R.id.et_title);
         editDate = findViewById(R.id.et_date);
         editDiet = findViewById(R.id.et_diet);
-        editStrength = findViewById(R.id.et_strength);
+        editStrength = findViewById(R.id.et_weight);
         editMental = findViewById(R.id.et_mental);
         editMsg = findViewById(R.id.et_msg);
 

@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -18,8 +22,10 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.ultimatemydailylog.DBHelper;
 import com.example.ultimatemydailylog.R;
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     DBHelper dbHelper;
     SQLiteDatabase database;
+
+    Toolbar toolbar;
 
 
     ActivityResultContract<Intent, ActivityResult> contract = new ActivityResultContracts.StartActivityForResult();
@@ -107,9 +115,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings1:
+                //사용자 추가
+                userInfo();
+                return true;
+            case R.id.action_settings2:
+                //달력 보기
+                Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.action_settings3:
+                //목표 확인
+                Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         Button btn_add = findViewById(R.id.btn_add);
         Button btn_delete = findViewById(R.id.btn_delete);
@@ -224,4 +261,30 @@ public class MainActivity extends AppCompatActivity {
         launcher = registerForActivityResult(contract, callback);
     }//oncreate
 
+    public void userInfo(){
+
+        View addUser = View.inflate(getApplicationContext(), R.layout.add_user_view, null);
+
+        EditText typeEdit = findViewById(R.id.et_type);
+        EditText goalEdit = findViewById(R.id.et_goal);
+        EditText weightEdit = findViewById(R.id.et_weight);
+
+        TextView setType = findViewById(R.id.tv_setType);
+        TextView setGoal = findViewById(R.id.tv_setGoal);
+        TextView setWeight = findViewById(R.id.tv_setWeight);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("사용자 정보 입력");
+        builder.setView(addUser);
+        builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                setType.setText(typeEdit.getText().toString().trim());
+                setGoal.setText(goalEdit.getText().toString().trim());
+                setWeight.setText(weightEdit.getText().toString().trim());
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
 }
