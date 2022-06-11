@@ -5,17 +5,20 @@
     <item
         android:id="@+id/action_settings1"
         android:orderInCategory="100"
-        android:title="사용자 정보 추가"
-        app:showAsAction="always" />
+        android:title="목표 설정하기"
+        android:tooltipText="test"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_settings2"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="달력 보기"
-        app:showAsAction="withText" />
+        android:tooltipText="Calendar"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_settings3"
-        android:orderInCategory="100"
-        android:title="목표 보기"
-        app:showAsAction="withText" />
+        android:orderInCategory="300"
+        android:title="Tips"
+        android:tooltipText="Info"
+        app:showAsAction="never" />
 
 </menu>

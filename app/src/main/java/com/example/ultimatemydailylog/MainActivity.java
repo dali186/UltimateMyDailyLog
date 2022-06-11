@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.service.autofill.UserData;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -33,12 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-    //USER
-    ArrayList<HashMap<String, String>> userData;
-    UserHelper userHelper;
-    SQLiteDatabase userDatabase;
-    EditText nameEdit, sexEdit, heightEdit;
-    TextView setName, setSex, setHeight;
+
+    TextView tv_setWeight, tv_setMass, tv_setFat, tv_setGweight, tv_setGmass, tv_setGfat;
+
     //DAIRY
     ListView listView;
     ArrayList<HashMap<String, String>> listData;
@@ -147,7 +141,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tv_setWeight = findViewById(R.id.tv_setWeight);
+        tv_setMass = findViewById(R.id.tv_setMass);
+        tv_setFat = findViewById(R.id.tv_setFat);
+        tv_setGweight = findViewById(R.id.tv_setGweight);
+        tv_setGmass = findViewById(R.id.tv_setGmass);
+        tv_setGfat = findViewById(R.id.tv_setGfat);
+
+        Intent intentU = getIntent();
+        String userMass =intentU.getStringExtra("setMass");
+        String userWeight =intentU.getStringExtra("setWeight");
+        String userFat =intentU.getStringExtra("setFat");
+        String userGmass =intentU.getStringExtra("setGmass");
+        String userGweight =intentU.getStringExtra("setGweight");
+        String userGfat =intentU.getStringExtra("setGfat");
+
+        tv_setWeight.setText(userMass + " Kg");
+        tv_setMass.setText(userWeight + " Kg");
+        tv_setFat.setText(userFat + " %");
+        tv_setGweight.setText(userGmass + " Kg");
+        tv_setGmass.setText(userGweight + " Kg");
+        tv_setGfat.setText(userGfat + " %");
+
         //user
+        /*
         userData = new ArrayList<>();
         userHelper = new UserHelper(this);
 
@@ -162,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
         userDatabase = userHelper.getWritableDatabase();
         userDatabase.insert(UserContract.TABLE_NAME, null, values);
+         */
 
         //toobar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -281,33 +300,7 @@ public class MainActivity extends AppCompatActivity {
     }//oncreate
 
     public void userInfo() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        TextView setName = findViewById(R.id.tv_setName);
-        TextView setSex = findViewById(R.id.tv_setSex);
-        TextView setHeight = findViewById(R.id.tv_setHeight);
-
-        EditText nameEdit = findViewById(R.id.et_name);
-        EditText sexEdit = findViewById(R.id.et_sex);
-        EditText heightEdit = findViewById(R.id.et_height);
-
-        builder.setView(inflater.inflate(R.layout.add_user_view, null));
-        builder.setTitle("사용자 정보 입력");
-        builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                String name = nameEdit.getText().toString();
-                String sex = sexEdit.getText().toString();
-                String height = heightEdit.getText().toString();
-
-                setName.setText(name);
-                setSex.setText(sex);
-                setHeight.setText(height);
-
-                dialogInterface.dismiss();
-            }
-        });
-        builder.show();
+        Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+        startActivity(intent);
     }
 }

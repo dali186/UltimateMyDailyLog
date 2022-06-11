@@ -25,7 +25,7 @@ public class EditActivity extends AppCompatActivity {
         editTitle = findViewById(R.id.et_title);
         editDate = findViewById(R.id.et_date);
         editDiet = findViewById(R.id.et_diet);
-        editStrength = findViewById(R.id.et_weight);
+        editStrength = findViewById(R.id.et_strength);
         editMental = findViewById(R.id.et_mental);
         editMsg = findViewById(R.id.et_msg);
 

@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cd1"
+        android:id="@+id/cd1_user"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
@@ -21,29 +21,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_edtitle"
+            android:id="@+id/tv_edtitle_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="TO CREATE YOUR DIARY"
+            android:text="SET YOUR GOALS"
             android:textSize="24sp"
             android:textStyle="italic" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cd2"
+        android:id="@+id/cd2_user"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="32dp"
         android:layout_marginRight="20dp"
         android:padding="10dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cd1">
+        app:layout_constraintTop_toBottomOf="@+id/cd1_user">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,39 +51,39 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/tv_name_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Title"
-                android:textSize="20sp" />
+                android:text="이름"
+                android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/et_title"
+                android:id="@+id/et_title_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:ems="10"
-                android:hint="title"
+                android:hint="이름 입력"
                 android:inputType="textPersonName"
                 android:textSize="20sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cd3"
+        android:id="@+id/cd3_user"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="20dp"
         android:padding="10dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cd2">
+        app:layout_constraintTop_toBottomOf="@+id/cd2_user">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,38 +91,38 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/textView9_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Date"
-                android:textSize="20sp" />
+                android:text="현재 골격근량"
+                android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/et_date"
+                android:id="@+id/et_mass_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:ems="10"
-                android:hint="yy/MM/dd"
+                android:hint="현재 골격근량 입력"
                 android:inputType="textPersonName" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cd4"
+        android:id="@+id/cd4_user"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="20dp"
         android:padding="10dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cd3">
+        app:layout_constraintTop_toBottomOf="@+id/cd3_user">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,38 +130,38 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/textView10_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Diet"
-                android:textSize="20sp" />
+                android:text="현재 체중"
+                android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/et_diet"
+                android:id="@+id/et_weight_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:ems="10"
-                android:hint="yes or no"
+                android:hint="현재 체중 입력"
                 android:inputType="textPersonName" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cd5"
+        android:id="@+id/cd5_user"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="20dp"
         android:padding="10dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cd4">
+        app:layout_constraintTop_toBottomOf="@+id/cd4_user">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -169,38 +169,38 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/textView11_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Strength"
-                android:textSize="20sp" />
+                android:text="현재 체지방률"
+                android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/et_strength"
+                android:id="@+id/et_fat_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:ems="10"
-                android:hint="5/4/3/2/1"
+                android:hint="현재 체지방률 입력"
                 android:inputType="textPersonName" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cd6"
+        android:id="@+id/cd6_user"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="20dp"
         android:padding="10dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cd5">
+        app:layout_constraintTop_toBottomOf="@+id/cd5_user">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -208,71 +208,106 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/textView12_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Mental"
-                android:textSize="20sp" />
+                android:text="목표 골격근량"
+                android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/et_mental"
+                android:id="@+id/et_gmass_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:ems="10"
-                android:hint="5/4/3/2/1"
+                android:hint="목표 골격근량 입력"
                 android:inputType="textPersonName" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cd7"
+        android:id="@+id/cd7_user"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="20dp"
+        android:padding="10dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cd6_user">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="목표 체중"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_gweight_user"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ems="10"
+                android:hint="목표 체중 입력"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cd8_user"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="20dp"
         android:padding="10dp"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cd6">
+        app:layout_constraintTop_toBottomOf="@+id/cd7_user">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Message"
-                android:textSize="20sp" />
+                android:gravity="center"
+                android:text="목표 체지방률"
+                android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/et_msg"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="4"
-                android:background="@color/colorPrimaryLightN"
-                android:ems="19"
-                android:hint="memo"
-                android:inputType="textLongMessage" />
+                android:id="@+id/et_gfat_user"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ems="10"
+                android:hint="목표 체지방률 입력"
+                android:inputType="textPersonName" />
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_save_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SAVE"
@@ -280,6 +315,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cd7"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintTop_toBottomOf="@+id/cd8_user" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
