@@ -3,6 +3,7 @@ package com.example.ultimatemydailylog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,9 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+
         et_name_user = findViewById(R.id.et_title_user);
         et_mass_user = findViewById(R.id.et_mass_user);
         et_weight_user = findViewById(R.id.et_weight_user);
@@ -35,18 +39,21 @@ public class UserActivity extends AppCompatActivity {
                 String setFat = et_fat_user.getText().toString();
                 String setGmass = et_gmass_user.getText().toString();
                 String setGweight = et_gweight_user.getText().toString();
-                String setGfat = et_fat_user.getText().toString();
+                String setGfat = et_gfat_user.getText().toString();
 
 
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putString("setName",setName);
+                editor.putString("setMass",setMass);
+                editor.putString("setWeight",setWeight);
+                editor.putString("setFat",setFat);
+                editor.putString("setGmass",setGmass);
+                editor.putString("setGweight",setGweight);
+                editor.putString("setGfat",setGfat);
+
+                editor.apply();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("setName", setName);
-                intent.putExtra("setMass", setMass);
-                intent.putExtra("setWeight", setWeight);
-                intent.putExtra("setFat", setFat);
-                intent.putExtra("setGmass", setGmass);
-                intent.putExtra("setGweight", setGweight);
-                intent.putExtra("setGfat", setGfat);
-
                 startActivity(intent);
             }
         });

@@ -61,9 +61,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="체중 :"
+                        android:text="골격근량 :"
                         android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_mass"
@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="골격근량 :"
+                        android:text="체중 :"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
 
@@ -141,9 +141,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="목표 체중 :"
+                        android:text="목표 골격근량 :"
                         android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_Gmass"
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="목표 골격근량 :"
+                        android:text="목표 체중:"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 

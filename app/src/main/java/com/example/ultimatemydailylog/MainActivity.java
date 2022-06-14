@@ -3,6 +3,7 @@ package com.example.ultimatemydailylog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_settings2:
                 //달력 보기
-                Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_LONG).show();
+                calendarInfo();
                 return true;
             case R.id.action_settings3:
                 //목표 확인
@@ -141,28 +142,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        tv_setWeight = findViewById(R.id.tv_setWeight);
-        tv_setMass = findViewById(R.id.tv_setMass);
-        tv_setFat = findViewById(R.id.tv_setFat);
-        tv_setGweight = findViewById(R.id.tv_setGweight);
-        tv_setGmass = findViewById(R.id.tv_setGmass);
-        tv_setGfat = findViewById(R.id.tv_setGfat);
-
-        Intent intentU = getIntent();
-        String userMass =intentU.getStringExtra("setMass");
-        String userWeight =intentU.getStringExtra("setWeight");
-        String userFat =intentU.getStringExtra("setFat");
-        String userGmass =intentU.getStringExtra("setGmass");
-        String userGweight =intentU.getStringExtra("setGweight");
-        String userGfat =intentU.getStringExtra("setGfat");
-
-        tv_setWeight.setText(userMass + " Kg");
-        tv_setMass.setText(userWeight + " Kg");
-        tv_setFat.setText(userFat + " %");
-        tv_setGweight.setText(userGmass + " Kg");
-        tv_setGmass.setText(userGweight + " Kg");
-        tv_setGfat.setText(userGfat + " %");
+        //목표 설정 메소드
+        //SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+        setInfo();
 
         //user
         /*
@@ -299,8 +281,41 @@ public class MainActivity extends AppCompatActivity {
         launcher = registerForActivityResult(contract, callback);
     }//oncreate
 
+    public void setInfo(){
+
+        tv_setWeight = findViewById(R.id.tv_setWeight);
+        tv_setMass = findViewById(R.id.tv_setMass);
+        tv_setFat = findViewById(R.id.tv_setFat);
+        tv_setGweight = findViewById(R.id.tv_setGweight);
+        tv_setGmass = findViewById(R.id.tv_setGmass);
+        tv_setGfat = findViewById(R.id.tv_setGfat);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
+        String userName = sharedPreferences.getString("setName", null);
+        String userMass = sharedPreferences.getString("setMass", null);
+        String userWeight = sharedPreferences.getString("setWeight", null);
+        String userFat = sharedPreferences.getString("setFat", null);
+        String userGmass = sharedPreferences.getString("setGmass", null);
+        String userGweight = sharedPreferences.getString("setGweight", null);
+        String userGfat = sharedPreferences.getString("setGfat", null);
+
+        tv_setWeight.setText(userMass + " Kg");
+        tv_setMass.setText(userWeight + " Kg");
+        tv_setFat.setText(userFat + " %");
+        tv_setGweight.setText(userGmass + " Kg");
+        tv_setGmass.setText(userGweight + " Kg");
+        tv_setGfat.setText(userGfat + " %");
+
+    }
+
     public void userInfo() {
         Intent intent = new Intent(getApplicationContext(), UserActivity.class);
         startActivity(intent);
     }
+
+    public void calendarInfo() {
+        Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+        startActivity(intent);
+    }
+
 }
