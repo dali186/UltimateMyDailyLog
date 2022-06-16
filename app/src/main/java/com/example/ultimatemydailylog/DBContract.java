@@ -26,6 +26,7 @@ interface DBContract {
     static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
     static final String SQL_LOAD = "SELECT * FROM " + TABLE_NAME;
     static final String SQL_SELECT = "SELECT * FROM "  + TABLE_NAME + " WHERE " + COL_TITLE + "=?";
+    static final String SQL_DATE_SELECT = "SELECT * FROM "  + TABLE_NAME + " WHERE " + COL_WHEN + "=?";
     static final String SQL_SELECT_ID = "SELECT ID FROM "  + TABLE_NAME + " WHERE " + COL_TITLE + "=? and " + COL_WHEN + "=?";
 }
 

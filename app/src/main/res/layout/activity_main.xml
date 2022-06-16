@@ -261,16 +261,6 @@
             android:text="DELETE" />
 
         <Button
-            android:id="@+id/btn_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:text="INFO" />
-
-        <Button
             android:id="@+id/btn_modify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

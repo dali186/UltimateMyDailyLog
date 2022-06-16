@@ -1,5 +1,6 @@
 package com.example.ultimatemydailylog;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,7 +34,6 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     TextView tv_setWeight, tv_setMass, tv_setFat, tv_setGweight, tv_setGmass, tv_setGfat;
-
     //DAIRY
     ListView listView;
     ArrayList<HashMap<String, String>> listData;
@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
         Button btn_add = findViewById(R.id.btn_add);
         Button btn_delete = findViewById(R.id.btn_delete);
-        Button btn_info = findViewById(R.id.btn_info);
         Button btn_modify = findViewById(R.id.btn_modify);
         //dairy
         listView = findViewById(R.id.listView);
@@ -194,38 +193,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                HashMap<String, String> hitem = (HashMap<String, String>) simpleAdapter.getItem(iSelectedItem);
+                String dTitle = hitem.get("diary");
+                String dDate = hitem.get("date");
+                String dDiet = hitem.get("diet");
+                String dStrength = hitem.get("strength");
+                String dMental = hitem.get("mental");
+                String dMsg = hitem.get("msg");
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("기록 확인 " + dDate);
+                builder.setMessage(" 운동 종류 : " + dTitle
+                        + "\n 식단 유무 : " + dDiet
+                        + "\n 운동 강도 : " + dStrength
+                        + "\n 의지 정도 : " + dMental
+                        + "\n 짧은 메모 : " + dMsg);
+                builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+                return true;
+            }
+        });
+    /*
         btn_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (iSelectedItem == -1) {
-                    Toast.makeText(getApplicationContext(), "선택한 항목이 없습니다.", Toast.LENGTH_LONG).show();
-                    return;
-                } else {
-                    HashMap<String, String> hitem = (HashMap<String, String>) simpleAdapter.getItem(iSelectedItem);
-                    String dTitle = hitem.get("diary");
-                    String dDate = hitem.get("date");
-                    String dDiet = hitem.get("diet");
-                    String dStrength = hitem.get("strength");
-                    String dMental = hitem.get("mental");
-                    String dMsg = hitem.get("msg");
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setTitle("기록 확인 " + dDate);
-                    builder.setMessage(" 운동 종류 : " + dTitle
-                            + "\n 식단 유무 : " + dDiet
-                            + "\n 운동 강도 : " + dStrength
-                            + "\n 의지 정도 : " + dMental
-                            + "\n 짧은 메모 : " + dMsg);
-                    builder.setPositiveButton("confirm", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    builder.show();
-                }
             }
         });
+     */
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
         tv_setGfat = findViewById(R.id.tv_setGfat);
 
         SharedPreferences sharedPreferences = getSharedPreferences("info", MODE_PRIVATE);
-        String userName = sharedPreferences.getString("setName", null);
+        //String userName = sharedPreferences.getString("setName", null);
         String userMass = sharedPreferences.getString("setMass", null);
         String userWeight = sharedPreferences.getString("setWeight", null);
         String userFat = sharedPreferences.getString("setFat", null);

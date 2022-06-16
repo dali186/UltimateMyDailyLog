@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 public class UserActivity extends AppCompatActivity {
     Button btn_save_user;
-    EditText et_name_user, et_mass_user, et_weight_user, et_fat_user, et_gmass_user, et_gweight_user, et_gfat_user;
+    EditText et_name_user, et_mass_user, et_weight_user, et_fat_user, et_gmass_user, et_gweight_user, et_gfat_user, et_date_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class UserActivity extends AppCompatActivity {
         et_gmass_user = findViewById(R.id.et_gmass_user);
         et_gweight_user = findViewById(R.id.et_gweight_user);
         et_gfat_user = findViewById(R.id.et_gfat_user);
+        et_date_user = findViewById(R.id.et_date_user);
 
         btn_save_user = findViewById(R.id.btn_save_user);
 
@@ -40,6 +41,7 @@ public class UserActivity extends AppCompatActivity {
                 String setGmass = et_gmass_user.getText().toString();
                 String setGweight = et_gweight_user.getText().toString();
                 String setGfat = et_gfat_user.getText().toString();
+                String setDate = et_date_user.getText().toString();
 
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -51,6 +53,7 @@ public class UserActivity extends AppCompatActivity {
                 editor.putString("setGmass",setGmass);
                 editor.putString("setGweight",setGweight);
                 editor.putString("setGfat",setGfat);
+                editor.putString("setDate",setDate);
 
                 editor.apply();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
